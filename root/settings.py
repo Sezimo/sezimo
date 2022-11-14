@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     # 3rd Party Apps
     'rest_framework', # https://www.django-rest-framework.org/
     # My Apps
-    'api.apps.ApiConfig'
+    'api.apps.ApiConfig',
     'alerts.apps.AlertsConfig'
     ''
 ]
@@ -69,7 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'alerts.context_processors.notifications'
+                'alerts.context_processors.notification_context_processor'
             ],
         },
     },
@@ -125,3 +125,10 @@ STATIC_URL = STATIC_URL
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Used for Notification caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}

@@ -1,0 +1,8 @@
+{% block notification %}
+{% spaceless %}
+<div class="alert alert-{{ notification.color }}" role="alert">
+    {% if notification.title %}<h5 class="alert-heading">{{ notification.title }}</h5><hr>{% endif %}
+    {{ notification.body|safe }}
+</div>
+{% endspaceless %}
+{% endblock notification%}
