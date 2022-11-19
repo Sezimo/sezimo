@@ -16,11 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from .views import IndexView
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'root'
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='index'),
+    path('', IndexView.as_view(), name='root_index'),
+    path('news', include('news.urls')),
     path('api', include('api.urls')),
     path('admin/', admin.site.urls),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
