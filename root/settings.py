@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 
-from .secrets import (BASE_DIR, SECRET_KEY, ALLOWED_HOSTS, DATABASES, STATIC_URL, TEMPLATE_DIRS)
+from .secrets import (BASE_DIR, SECRET_KEY, ALLOWED_HOSTS,
+                      DATABASES, STATIC_URL, TEMPLATE_DIRS, PROJECT_DIR, STATIC_ROOT)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = BASE_DIR
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 3rd Party Apps
-    'rest_framework', # https://www.django-rest-framework.org/
+    'rest_framework',  # https://www.django-rest-framework.org/
     # My Apps
     'api.apps.ApiConfig',
     'alerts.apps.AlertsConfig'
@@ -132,3 +133,8 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
 }
+APPEND_SLASH = True
+
+
+PROJECT_DIR = PROJECT_DIR
+STATIC_ROOT = STATIC_ROOT
