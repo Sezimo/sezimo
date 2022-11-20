@@ -1,0 +1,15 @@
+{% block notification %}
+    {% spaceless %}
+        <div class="toast fade show" id="notification_{{ notification.id }}">
+            <div class="toast-header">
+                <strong class="me-auto"><i class="alert-circle"></i> {{ notification.title }}</strong>
+                <small>{{ notification.create_date|timesince }} ago</small>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+            </div>
+            <div class="toast-body">{{ notification.body|safe }}</div>
+        </div>
+    {% endspaceless %}
+{% endblock notification %}
