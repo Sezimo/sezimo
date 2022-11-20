@@ -1,22 +1,11 @@
 {% block notification %}
     {% spaceless %}
-        {% comment %} <div class="alert alert-{{ notification.color }} my-3" role="alert">
+        <div class="alert alert-{{ notification.color }} my-3" role="alert">
             {% if notification.title %}
                 <h5 class="alert-heading">{{ notification.title }}</h5>
                 <hr>
             {% endif %}
             {{ notification.body|safe }}
-        </div> {% endcomment %}
-        <div class="toast fade show" id="notification_{{ notification.id }}">
-            <div class="toast-header">
-                <strong class="me-auto"><i class="alert-circle"></i> {{ notification.title }}</strong>
-                <small>{{ notification.create_date|timesince }} ago</small>
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="toast"
-                        aria-label="Close"></button>
-            </div>
-            <div class="toast-body">{{ notification.body|safe }}</div>
         </div>
     {% endspaceless %}
 {% endblock notification %}
