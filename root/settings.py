@@ -10,13 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-
+import os
 from .secrets import (BASE_DIR, SECRET_KEY, ALLOWED_HOSTS,
-                      DATABASES, STATIC_URL, TEMPLATE_DIRS, PROJECT_DIR, STATIC_ROOT)
+                      DATABASES)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = BASE_DIR
-
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -41,9 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 3rd Party Apps
     'rest_framework',  # https://www.django-rest-framework.org/
+    'ckeditor',  # https://github.com/django-ckeditor/django-ckeditor
     # My Apps
-    'api.apps.ApiConfig',
-    'alerts.apps.AlertsConfig'
+    'alerts.apps.AlertsConfig',
+    'news.apps.NewsConfig'
     ''
 ]
 
@@ -62,12 +63,13 @@ ROOT_URLCONF = 'root.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': TEMPLATE_DIRS,
+        'DIRS': [os.path.join(BASE_DIR, 'templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.static',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'alerts.context_processors.notification_context_processor'
@@ -120,7 +122,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = STATIC_URL
+# StackOverflow Reference:
+# https://stackoverflow.com/questions/47738345/django-static-files-404-error
+STATIC_URL = '/static/'
+
+# Where files are sent after `py manage.py collectstatic`
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "assets")
+
+# Struggled understanding why Django wasnt serving Static files.
+# https://docs.djangoproject.com/en/4.1/ref/settings/#staticfiles-dirs
+# Item 1: Human value when loading on template
+# Item 2: Directory to folder where files are hosted.
+STATICFILES_DIRS = [
+    ('css', os.path.join(BASE_DIR, 'static/css/')),
+    ('js', os.path.join(BASE_DIR, 'static/js/')),
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -135,6 +152,6 @@ CACHES = {
 }
 APPEND_SLASH = True
 
-
-PROJECT_DIR = PROJECT_DIR
-STATIC_ROOT = STATIC_ROOT
+# Django Ckeditor Settings
+CKEDITOR_BASEPATH = os.path.join(STATIC_URL, 'ckeditor/ckeditor/')
+X_FRAME_OPTIONS = 'SAMEORIGIN'
