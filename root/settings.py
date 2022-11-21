@@ -150,8 +150,12 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
 }
+
 APPEND_SLASH = True
 
 # Django Ckeditor Settings
 CKEDITOR_BASEPATH = os.path.join(STATIC_URL, 'ckeditor/ckeditor/')
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+LOGIN_REDIRECT_URL = "root_index"
+LOGOUT_REDIRECT_URL = "logged-out"
