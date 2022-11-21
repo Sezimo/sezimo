@@ -1,0 +1,49 @@
+{% extends "home/index.html" %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">Your username and password didn't match. Please try again.</div>
+        {% endif %}
+        <div class="card">
+            <h5 class="card-header">SeZiMo Gaming</h5>
+            <div class="card-body">
+                <h5 class="card-title">Please sign in</h5>
+                <div class="wrapper">
+                    <form class="form-signin">
+                        <div class="form-floating mb-3">
+                            <input type="input"
+                                   class="form-control"
+                                   id="id_username"
+                                   name="username"
+                                   placeholder="username"/>
+                            <label for="id_username">
+                                <i data-feather="user"></i> username
+                            </label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="password"
+                                   class="form-control"
+                                   id="{{ form.password.label }}"
+                                   name="password"
+                                   placeholder="super secret password"/>
+                            <label for="floating_password">
+                                <i data-feather="key"></i> super secret password
+                            </label>
+                        </div>
+                        <div class="d-grid gap-2 mt-3">
+                            <button class="btn btn-primary" type="submit">Sign in</button>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a type="button" class="btn btn-outline-info">Create an Account!</a>
+                                <a type="button"
+                                   class="btn btn-outline-dark"
+                                   href="{% url 'auth:password_reset' %}">Forgot Password?</a>
+                            </div>
+                            <input type="hidden" name="next" value="{{ next }}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock content %}
