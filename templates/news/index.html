@@ -2,24 +2,16 @@
 {% block content %}
     <h1>Welcome to the news page!</h1>
     <!-- Dropdown Trigger -->
-    <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a>
-    <!-- Dropdown Structure -->
-    <ul id='dropdown1' class='dropdown-content'>
-        <li>
-            <a href="#!">one</a>
-        </li>
-        <li>
-            <a href="#!">two</a>
-        </li>
-        <li class="divider" tabindex="-1"></li>
-        <li>
-            <a href="#!">three</a>
-        </li>
-        <li>
-            <a href="#!"><i class="material-icons">view_module</i>four</a>
-        </li>
-        <li>
-            <a href="#!"><i class="material-icons">cloud</i>five</a>
-        </li>
+    <ul>
+        {% for article in articles %}
+            <li>{{ article.title }}</li>
+            <ul>
+                <li>Short Description: {{ article.short_description }}</li>
+                <li>Content: {{ article.content|safe }}</li>
+                <li>Author: {{ article.author.get_full_name }}</li>
+                <li>Created: {{ article.create_dttm }}</li>
+                <li>Modified: {{ article.updated_dttm }}</li>
+            </ul>
+        {% endfor %}
     </ul>
 {% endblock content %}
