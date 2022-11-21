@@ -19,11 +19,10 @@ from .views import IndexView
 from django.conf import settings
 from django.conf.urls.static import static
 
-app_name = 'root'
+app_name = 'root'  # pylint: disable=invalid-name
 
 urlpatterns = [
     path('', IndexView.as_view(), name='root_index'),
-    path('news', include('news.urls')),
-    path('api', include('api.urls')),
+    path('news/', include('news.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
